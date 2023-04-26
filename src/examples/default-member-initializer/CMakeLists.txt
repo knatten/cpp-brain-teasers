@@ -1,0 +1,1 @@
+add_executable(default-member-initalizer default-member-initializer.cpp)

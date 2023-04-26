@@ -1,0 +1,6 @@
+*.idea
+*.swp
+*.swo
+build*
+cmake-build*
+

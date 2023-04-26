@@ -1,0 +1,1 @@
+add_executable(template-vs-function template-vs-function.cpp)

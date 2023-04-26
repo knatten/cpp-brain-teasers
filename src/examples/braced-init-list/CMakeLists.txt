@@ -1,0 +1,1 @@
+add_library(braced-init-list braced-init-list.cpp)

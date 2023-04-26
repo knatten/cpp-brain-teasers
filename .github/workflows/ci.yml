@@ -1,0 +1,43 @@
+name: CI
+on: [push]
+jobs:
+  linux-build:
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Debug, Release]
+        compiler: [g++, clang++]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./ci/linux/setup.sh
+      - run: ./ci/linux/build.sh ${{matrix.configuration}} ${{matrix.compiler}}
+  clang-tidy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./ci/linux/setup.sh
+      - run: ./ci/linux/clang-tidy.sh
+  windows-build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ilammy/msvc-dev-cmd@v1
+      - run: |
+          cd ${{ github.workspace}}
+          cmake -S src -B build
+          cmake --build build --parallel
+          cd build
+          ctest --verbose --timeout 10
+        continue-on-error: true
+  sanitizers:
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address, thread, undefined]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./ci/linux/setup.sh
+      - run: ./ci/linux/sanitizer.sh ${{matrix.sanitizer}}
+        continue-on-error: true

@@ -1,0 +1,1 @@
+add_executable(siof source1.cpp source2.cpp )
