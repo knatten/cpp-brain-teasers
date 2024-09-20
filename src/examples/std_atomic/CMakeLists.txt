@@ -1,6 +1,6 @@
 add_executable(std_atomic std_atomic.cpp)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (UNIX AND NOT APPLE)
-        target_link_libraries(std_atomic PRIVATE atomic)
+        target_link_libraries(std_atomic PRIVATE atomic Threads::Threads)
     endif()
 endif ()
