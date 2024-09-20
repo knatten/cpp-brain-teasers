@@ -7,11 +7,12 @@ jobs:
       matrix:
         configuration: [Debug, Release]
         compiler: [g++, clang++]
+        generator: ["make", "ninja"]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - run: ./ci/linux/setup.sh
-      - run: ./ci/linux/build.sh ${{matrix.configuration}} ${{matrix.compiler}}
+      - run: ./ci/linux/build.sh ${{matrix.configuration}} ${{matrix.compiler}} ${{matrix.generator}}
   clang-tidy:
     runs-on: ubuntu-22.04
     steps:
