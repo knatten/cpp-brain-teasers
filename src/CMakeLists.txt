@@ -3,6 +3,9 @@ project(CppBrainTeasers)
 set(CMAKE_CXX_STANDARD 20)
 enable_testing()
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 message(STATUS "CMAKE_CXX_COMPILER_ID is ${CMAKE_CXX_COMPILER_ID}")
 
 # Memory sanitizer requires rebuilding the entire world, don't bother for now
@@ -42,6 +45,7 @@ add_puzzle(a-false-start)
 add_puzzle(a-constant-struggle)
 add_puzzle(aristotles-sum-of-parts)
 add_puzzle(back-from-the-future)
+target_link_libraries(back-from-the-future PRIVATE Threads::Threads)
 add_puzzle(an-overloaded-container)
 add_puzzle(a-strong-point)
 add_puzzle(moving-out)
